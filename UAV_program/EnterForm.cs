@@ -42,4 +42,4 @@ namespace UAV_program
 //.AddJsonFile(appSettingsPath, optional: false, reloadOnChange: true)
 //.Build();
 //using PostgreSqlDb postgreeDb = new PostgreSqlDb(connectionString: config.GetSection("PostgreeSqlConnectionString").Value ?? throw new NullReferenceException());
-
+//и в репозиторий

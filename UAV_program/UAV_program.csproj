@@ -17,7 +17,6 @@
     <Folder Include="Images\" />
     <Folder Include="Results\" />
     <Folder Include="Settings\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
