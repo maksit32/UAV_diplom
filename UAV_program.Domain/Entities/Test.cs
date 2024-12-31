@@ -20,9 +20,9 @@ namespace UAV_program.Domain.Entities
 		public int Mark { get; set; }
         public DateTime DateExam { get; set; }
 		public Guid UserId { get; set; }
-		public Test User { get; set; }
+		public User User { get; set; }
 
-		public Test(Test user, int correctQuestions = 0, int totalQuesions = 10, int mark = 2)
+		public Test(User user, int correctQuestions = 0, int totalQuesions = 10, int mark = 2)
 		{
 			CorrectAnswers = correctQuestions;
 			TotalQuestions = totalQuesions;
