@@ -22,6 +22,7 @@ namespace UAV_program.Domain.Entities
 		public Guid UserId { get; set; }
 		public User User { get; set; }
 
+		protected Test() { }
 		public Test(User user, int correctQuestions = 0, int totalQuesions = 10, int mark = 2)
 		{
 			CorrectAnswers = correctQuestions;

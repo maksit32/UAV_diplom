@@ -1,6 +1,10 @@
 using Microsoft.Extensions.Configuration;
 using UAV_program.DbContexts;
+using UAV_program.Domain.Entities;
 using UAV_program.Domain.Exceptions;
+using UAV_program.Domain.Services.Interfaces;
+using UAV_program.Forms;
+using UAV_program.Services;
 
 namespace UAV_program
 {
@@ -8,18 +12,10 @@ namespace UAV_program
 	{
 		#region [Objects]
 		//objects
-
-		//configurations
-		private static readonly IConfiguration configuration = new ConfigurationBuilder().AddUserSecrets<EnterForm>().Build();
-
-		//connection string
-		private static readonly string connectionString = configuration["PostgreSqlConnectionString"]
-					?? throw new EmptyConnectionStringException("Connection string not found.");
+		private User user;
 
 		//services
-
-		//CTS
-		private static readonly CancellationTokenSource cts = new CancellationTokenSource();
+		private readonly IValidationService validationService = new ValidationService();
 		#endregion
 
 		public EnterForm()
@@ -32,14 +28,50 @@ namespace UAV_program
 		{
 
 		}
+		private void обАвтореToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show($"Данная обучающая программа разработана студентом группы РС-6 факультета АСК" +
+				$"{Environment.NewLine}Корнильевым Максимом Михайловичем", "Об авторе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show($"Данная обучающая программа позволяет ознакомить операторов с комплексом мониторинга земной поверхности." +
+				$"{Environment.NewLine}{Environment.NewLine}" +
+				$"Основные режимы программы:{Environment.NewLine}" +
+				$"1) Обучение{Environment.NewLine}" +
+				$"2) Тестирование{Environment.NewLine}" +
+				$"3) Доступ к литературе{Environment.NewLine}", "О программе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (char.IsDigit(e.KeyChar) || !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+			{
+				// Если это цифра или специальный символ, отменяем ввод
+				e.Handled = true;
+			}
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				user = new User(this.textBox1.Text);
+				validationService.ValidateUser(user);
+
+				//переход на следующий мнемокадр
+				ChoiceModeForm form = new ChoiceModeForm(user);
+
+				this.Hide();
+				form.Show();
+			}
+			catch (Exception)
+			{
+				MessageBox.Show($"Введите корректное имя! Имя не может быть пустым!",
+					"Внимание, ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 		#endregion
 	}
 }
-
-//Scoped + нужен repository
-////развертка базы (Scoped lifetime)
-//var config = new ConfigurationBuilder()
-//.AddJsonFile(appSettingsPath, optional: false, reloadOnChange: true)
-//.Build();
-//using PostgreSqlDb postgreeDb = new PostgreSqlDb(connectionString: config.GetSection("PostgreeSqlConnectionString").Value ?? throw new NullReferenceException());
-//и в репозиторий

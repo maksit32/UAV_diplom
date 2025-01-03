@@ -13,7 +13,7 @@ namespace UAV_program.Repository
 	public class UserRepository : IUserRepository
 	{
 		private readonly TestDbContext _dbContext;
-		private DbSet<Test> Users => _dbContext.Set<Test>();
+		private DbSet<User> Users => _dbContext.Set<User>();
 
 		public UserRepository(TestDbContext dbContext)
 		{
@@ -21,24 +21,24 @@ namespace UAV_program.Repository
 		}
 
 		//CRUD
-		public async Task AddUserAsync(Test newUser, CancellationToken token)
+		public async Task AddUserAsync(User newUser, CancellationToken token)
 		{
 			if (newUser is null) throw new ArgumentNullException(nameof(newUser));
 
 			await Users.AddAsync(newUser, token);
 			await _dbContext.SaveChangesAsync();
 		}
-		public async Task<Test?> GetUserByIdAsync(Guid Id, CancellationToken token)
+		public async Task<User?> GetUserByIdAsync(Guid Id, CancellationToken token)
 		{
 			return await Users.FirstOrDefaultAsync(u => u.Id == Id);
 		}
 
-		public async Task<List<Test>> ReadAllUsersAsync(CancellationToken token)
+		public async Task<List<User>> ReadAllUsersAsync(CancellationToken token)
 		{
 			return await Users.ToListAsync(token);
 		}
 
-		public async Task UpdateUserAsync(Test updUser, CancellationToken token)
+		public async Task UpdateUserAsync(User updUser, CancellationToken token)
 		{
 			if (updUser is null) throw new ArgumentNullException(nameof(updUser));
 
@@ -46,7 +46,7 @@ namespace UAV_program.Repository
 			await _dbContext.SaveChangesAsync();
 		}
 
-		public async Task DeleteUserAsync(Test user, CancellationToken token)
+		public async Task DeleteUserAsync(User user, CancellationToken token)
 		{
 			if (user is null) throw new ArgumentNullException(nameof(user));
 

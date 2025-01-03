@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Forms\" />
     <Folder Include="Literature\" />
     <Folder Include="Migrations\" />
     <Folder Include="Icons\" />

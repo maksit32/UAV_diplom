@@ -8,13 +8,13 @@ using UAV_program.Domain.Entities;
 
 namespace UAV_program.Domain.Repository.Interfaces
 {
-	public interface IUserRepository : IRepository<Test>
+	public interface IUserRepository : IRepository<User>
 	{
-		Task AddUserAsync(Test newUser, CancellationToken token);
-		Task<List<Test>> ReadAllUsersAsync(CancellationToken token);
-		Task<Test?> GetUserByIdAsync(Guid Id, CancellationToken token);
-		Task UpdateUserAsync(Test updUser, CancellationToken token);
+		Task AddUserAsync(User newUser, CancellationToken token);
+		Task<List<User>> ReadAllUsersAsync(CancellationToken token);
+		Task<User?> GetUserByIdAsync(Guid Id, CancellationToken token);
+		Task UpdateUserAsync(User updUser, CancellationToken token);
 		Task DeleteUserByIdAsync(Guid Id, CancellationToken token);
-		Task DeleteUserAsync(Test user, CancellationToken token);
+		Task DeleteUserAsync(User user, CancellationToken token);
 	}
 }
