@@ -8,9 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UAV_program.DbContexts;
 using UAV_program.Domain.Entities;
 using UAV_program.Domain.Exceptions;
+using UAV_program.Domain.Repository.Interfaces;
 using UAV_program.Domain.Services.Interfaces;
+using UAV_program.Repository;
 using UAV_program.Services;
 
 namespace UAV_program.Forms
@@ -24,6 +27,10 @@ namespace UAV_program.Forms
 		//objects
 		private User user;
 		private int indexBtn = 0;
+		private int timeElapsed = 0; // Время прошло в секундах
+		private const int duration = 600; // 10 минут в секундах
+		private List<Answer> lstAnswers;
+		private List<int> lstIndexes;
 
 		//configurations
 		private static readonly IConfiguration configuration = new ConfigurationBuilder()
@@ -33,6 +40,10 @@ namespace UAV_program.Forms
 		//connection string
 		private static readonly string connectionString = configuration.GetConnectionString("PostgreSqlConnectionString")
 						?? throw new EmptyConnectionStringException("Connection string not found.");
+
+		//services
+		private readonly ITheoryService theoryService = new TheoryService();
+		private readonly ITestService testService = new TestService();
 
 		//CTS
 		private static readonly CancellationTokenSource cts = new CancellationTokenSource();
@@ -70,17 +81,83 @@ namespace UAV_program.Forms
 			this.NameLabel.Text = user.ToString();
 			this.comboBox1.SelectedIndex = 0;
 		}
-		#endregion
 
 		//режим обучение
 		private void PrevButton_Click(object sender, EventArgs e)
 		{
-
+			var pair = theoryService.MoveTheoryIndex(ref indexBtn, false);
+			this.pictureBox1.Image = Image.FromFile(pair.Key);
+			this.richTextBox1.Text = pair.Value;
 		}
 
 		private void NextButton_Click(object sender, EventArgs e)
 		{
+			var pair = theoryService.MoveTheoryIndex(ref indexBtn, true);
+			this.pictureBox1.Image = Image.FromFile(pair.Key);
+			this.richTextBox1.Text = pair.Value;
+		}
+		//режим теста
 
+		#endregion
+
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			switch (comboBox1.SelectedIndex)
+			{
+				//обучение
+				case 0:
+					{
+						this.ModeLabel.Text = "Режим: обучение";
+						this.groupBox1.Visible = true;
+					}
+					break;
+				//тест
+				case 1:
+					{
+						this.ModeLabel.Text = "Режим: тест";
+						this.groupBox1.Visible = false;
+					}
+					break;
+				//литература
+				case 2:
+					{
+						this.ModeLabel.Text = "Режим: литература";
+						this.groupBox1.Visible = false;
+					}
+					break;
+				default:
+					break;
+			}
+		}
+
+		private async void timer1_Tick(object sender, EventArgs e)
+		{
+			try
+			{
+				timeElapsed++;
+
+				//время закончилось
+				if (timeElapsed >= duration)
+				{
+					// Останавливаем таймер
+					timer1.Stop();
+					//подсчет результатов
+					Test testRes = testService.CreateDbTest(lstAnswers, lstIndexes, user);
+					//выводим сообщение о завершении теста
+					MessageBox.Show($"Внимание, время тестирования закончилось!", "Тест окончен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+					//запись в бд результата экзамена
+					using TestDbContext dbContext = new TestDbContext(connectionString);
+					ITestRepository testRepo = new TestRepository(dbContext);
+					await testRepo.AddTestAsync(testRes, cts.Token);
+					//выход из программы
+					Application.Exit();
+				}
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Возникла ошибка при прохождении теста!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 	}
 }

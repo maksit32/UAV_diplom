@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NoDBForm));
 			оПрограммеToolStripMenuItem = new ToolStripMenuItem();
 			menuStrip1 = new MenuStrip();
@@ -41,6 +42,7 @@
 			NameLabel = new Label();
 			label1 = new Label();
 			comboBox1 = new ComboBox();
+			timer1 = new System.Windows.Forms.Timer(components);
 			menuStrip1.SuspendLayout();
 			groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -88,7 +90,7 @@
 			// 
 			// NextButton
 			// 
-			NextButton.Location = new Point(641, 371);
+			NextButton.Location = new Point(597, 371);
 			NextButton.Name = "NextButton";
 			NextButton.Size = new Size(309, 59);
 			NextButton.TabIndex = 5;
@@ -98,7 +100,7 @@
 			// 
 			// PrevButton
 			// 
-			PrevButton.Location = new Point(115, 371);
+			PrevButton.Location = new Point(67, 371);
 			PrevButton.Name = "PrevButton";
 			PrevButton.Size = new Size(309, 59);
 			PrevButton.TabIndex = 4;
@@ -109,10 +111,10 @@
 			// richTextBox1
 			// 
 			richTextBox1.BackColor = SystemColors.Menu;
-			richTextBox1.Location = new Point(549, 54);
+			richTextBox1.Location = new Point(440, 54);
 			richTextBox1.Name = "richTextBox1";
 			richTextBox1.ReadOnly = true;
-			richTextBox1.Size = new Size(493, 287);
+			richTextBox1.Size = new Size(603, 287);
 			richTextBox1.TabIndex = 1;
 			richTextBox1.Text = "Текст";
 			// 
@@ -120,7 +122,7 @@
 			// 
 			pictureBox1.Location = new Point(26, 54);
 			pictureBox1.Name = "pictureBox1";
-			pictureBox1.Size = new Size(493, 287);
+			pictureBox1.Size = new Size(398, 287);
 			pictureBox1.TabIndex = 0;
 			pictureBox1.TabStop = false;
 			// 
@@ -165,6 +167,12 @@
 			comboBox1.Size = new Size(502, 39);
 			comboBox1.TabIndex = 11;
 			comboBox1.ValueMember = "0";
+			comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+			// 
+			// timer1
+			// 
+			timer1.Interval = 1000;
+			timer1.Tick += timer1_Tick;
 			// 
 			// NoDBForm
 			// 
@@ -210,5 +218,6 @@
 		private ComboBox comboBox1;
 		private Button NextButton;
 		private Button PrevButton;
+		private System.Windows.Forms.Timer timer1;
 	}
 }

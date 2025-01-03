@@ -18,7 +18,8 @@ namespace UAV_program.Services
 				throw new ArgumentException("Списки ответов и индексов должны быть одинаковой длины и не null.");
 
 			int correct = 0;
-			int totalQuestions = lstAnswers.Count;
+			//сколько ОТВЕЧЕННЫХ вопросов
+			int totalQuestions = lstIndexes.Count;
 
 			for (int i = 0; i < totalQuestions; i++)
 			{

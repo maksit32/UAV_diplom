@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DBForm));
 			menuStrip1 = new MenuStrip();
 			обАвтореToolStripMenuItem = new ToolStripMenuItem();
@@ -41,6 +42,7 @@
 			pictureBox1 = new PictureBox();
 			comboBox1 = new ComboBox();
 			label1 = new Label();
+			timer1 = new System.Windows.Forms.Timer(components);
 			menuStrip1.SuspendLayout();
 			groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -108,7 +110,7 @@
 			// 
 			// NextButton
 			// 
-			NextButton.Location = new Point(645, 374);
+			NextButton.Location = new Point(597, 374);
 			NextButton.Name = "NextButton";
 			NextButton.Size = new Size(309, 59);
 			NextButton.TabIndex = 3;
@@ -118,7 +120,7 @@
 			// 
 			// PrevButton
 			// 
-			PrevButton.Location = new Point(119, 374);
+			PrevButton.Location = new Point(78, 374);
 			PrevButton.Name = "PrevButton";
 			PrevButton.Size = new Size(309, 59);
 			PrevButton.TabIndex = 2;
@@ -129,10 +131,10 @@
 			// richTextBox1
 			// 
 			richTextBox1.BackColor = SystemColors.Menu;
-			richTextBox1.Location = new Point(549, 54);
+			richTextBox1.Location = new Point(445, 54);
 			richTextBox1.Name = "richTextBox1";
 			richTextBox1.ReadOnly = true;
-			richTextBox1.Size = new Size(493, 287);
+			richTextBox1.Size = new Size(597, 287);
 			richTextBox1.TabIndex = 1;
 			richTextBox1.Text = "Текст";
 			// 
@@ -140,7 +142,7 @@
 			// 
 			pictureBox1.Location = new Point(26, 54);
 			pictureBox1.Name = "pictureBox1";
-			pictureBox1.Size = new Size(493, 287);
+			pictureBox1.Size = new Size(402, 287);
 			pictureBox1.TabIndex = 0;
 			pictureBox1.TabStop = false;
 			// 
@@ -155,6 +157,7 @@
 			comboBox1.Size = new Size(502, 39);
 			comboBox1.TabIndex = 6;
 			comboBox1.ValueMember = "0";
+			comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
 			// 
 			// label1
 			// 
@@ -165,6 +168,11 @@
 			label1.TabIndex = 7;
 			label1.Text = "Выберите режим:";
 			label1.TextAlign = ContentAlignment.MiddleCenter;
+			// 
+			// timer1
+			// 
+			timer1.Interval = 1000;
+			timer1.Tick += timer1_Tick;
 			// 
 			// DBForm
 			// 
@@ -210,5 +218,6 @@
 		private PictureBox pictureBox1;
 		private Button NextButton;
 		private Button PrevButton;
+		private System.Windows.Forms.Timer timer1;
 	}
 }
