@@ -100,7 +100,7 @@ namespace UAV_program.Forms
 		{
 			try
 			{
-				NoDBForm form = new NoDBForm();
+				NoDBForm form = new NoDBForm(user);
 				//переход на следующий мнемокадр
 
 				this.Hide();

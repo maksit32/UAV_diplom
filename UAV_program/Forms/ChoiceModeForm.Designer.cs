@@ -124,7 +124,9 @@
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(5);
 			MaximizeBox = false;
+			MaximumSize = new Size(1248, 550);
 			MinimizeBox = false;
+			MinimumSize = new Size(1248, 550);
 			Name = "ChoiceModeForm";
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Добро пожаловать в программу!";

@@ -16,6 +16,8 @@ namespace UAV_program.Forms
 		#region [Objects]
 		//filepaths
 		private static readonly string _literatureFP = Environment.CurrentDirectory + "\\..\\..\\..\\Literature\\";
+		private static readonly string _resultsFP = Environment.CurrentDirectory + "\\..\\..\\..\\Results\\";
+
 
 		//objects
 		private User user;

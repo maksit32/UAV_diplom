@@ -123,7 +123,9 @@
 			MainMenuStrip = menuStrip1;
 			Margin = new Padding(5);
 			MaximizeBox = false;
+			MaximumSize = new Size(1272, 605);
 			MinimizeBox = false;
+			MinimumSize = new Size(1272, 605);
 			Name = "EnterForm";
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Добро пожаловать в программу!";

@@ -97,7 +97,7 @@
 			groupBox1.Controls.Add(pictureBox1);
 			groupBox1.Location = new Point(121, 256);
 			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(1067, 373);
+			groupBox1.Size = new Size(1067, 464);
 			groupBox1.TabIndex = 5;
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Обучающий блок";
@@ -121,12 +121,14 @@
 			// 
 			// comboBox1
 			// 
+			comboBox1.DisplayMember = "0";
 			comboBox1.FormattingEnabled = true;
 			comboBox1.Items.AddRange(new object[] { "Обучение", "Тестирование", "Литература" });
 			comboBox1.Location = new Point(121, 120);
 			comboBox1.Name = "comboBox1";
 			comboBox1.Size = new Size(502, 39);
 			comboBox1.TabIndex = 6;
+			comboBox1.ValueMember = "0";
 			// 
 			// label1
 			// 
@@ -143,7 +145,7 @@
 			AutoScaleDimensions = new SizeF(13F, 31F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.GradientInactiveCaption;
-			ClientSize = new Size(1300, 698);
+			ClientSize = new Size(1300, 768);
 			Controls.Add(label1);
 			Controls.Add(comboBox1);
 			Controls.Add(groupBox1);
