@@ -51,6 +51,10 @@ namespace UAV_program
 				// Если это цифра или специальный символ, отменяем ввод
 				e.Handled = true;
 			}
+			if(this.textBox1.Text.Length > 15 ) 
+			{
+				e.Handled = true;
+			}
 		}
 
 		private void button1_Click(object sender, EventArgs e)

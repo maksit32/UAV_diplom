@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UAV_program.Domain.Entities;
+using UAV_program.Domain.Services.Interfaces;
+using UAV_program.Services;
 
 namespace UAV_program.Forms
 {
@@ -21,6 +23,11 @@ namespace UAV_program.Forms
 
 		//objects
 		private User user;
+		private int indexBtn = 0;
+
+		//services
+		private static readonly IRandomizer randomizer = new GuidRandomizer();
+		private readonly IFIleWriterService fws = new TxtFileWriterService(randomizer, _resultsFP);
 
 		//CTS
 		private static readonly CancellationTokenSource cts = new CancellationTokenSource();
@@ -51,13 +58,25 @@ namespace UAV_program.Forms
 
 		private void NoDBForm_Load(object sender, EventArgs e)
 		{
-
+			this.NameLabel.Text = user.ToString();
+			this.comboBox1.SelectedIndex = 0;
 		}
 		#endregion
 
 		private void NoDBForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			Application.Exit();
+		}
+
+		//режим обучение
+		private void PrevButton_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void NextButton_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

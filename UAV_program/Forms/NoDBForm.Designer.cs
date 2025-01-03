@@ -33,6 +33,8 @@
 			menuStrip1 = new MenuStrip();
 			обАвтореToolStripMenuItem = new ToolStripMenuItem();
 			groupBox1 = new GroupBox();
+			NextButton = new Button();
+			PrevButton = new Button();
 			richTextBox1 = new RichTextBox();
 			pictureBox1 = new PictureBox();
 			ModeLabel = new Label();
@@ -73,6 +75,8 @@
 			// groupBox1
 			// 
 			groupBox1.BackColor = Color.PowderBlue;
+			groupBox1.Controls.Add(NextButton);
+			groupBox1.Controls.Add(PrevButton);
 			groupBox1.Controls.Add(richTextBox1);
 			groupBox1.Controls.Add(pictureBox1);
 			groupBox1.Location = new Point(117, 259);
@@ -82,11 +86,32 @@
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Обучающий блок";
 			// 
+			// NextButton
+			// 
+			NextButton.Location = new Point(641, 371);
+			NextButton.Name = "NextButton";
+			NextButton.Size = new Size(309, 59);
+			NextButton.TabIndex = 5;
+			NextButton.Text = "Далее";
+			NextButton.UseVisualStyleBackColor = true;
+			NextButton.Click += NextButton_Click;
+			// 
+			// PrevButton
+			// 
+			PrevButton.Location = new Point(115, 371);
+			PrevButton.Name = "PrevButton";
+			PrevButton.Size = new Size(309, 59);
+			PrevButton.TabIndex = 4;
+			PrevButton.Text = "Назад";
+			PrevButton.UseVisualStyleBackColor = true;
+			PrevButton.Click += PrevButton_Click;
+			// 
 			// richTextBox1
 			// 
 			richTextBox1.BackColor = SystemColors.Menu;
 			richTextBox1.Location = new Point(549, 54);
 			richTextBox1.Name = "richTextBox1";
+			richTextBox1.ReadOnly = true;
 			richTextBox1.Size = new Size(493, 287);
 			richTextBox1.TabIndex = 1;
 			richTextBox1.Text = "Текст";
@@ -132,6 +157,7 @@
 			// comboBox1
 			// 
 			comboBox1.DisplayMember = "0";
+			comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
 			comboBox1.FormattingEnabled = true;
 			comboBox1.Items.AddRange(new object[] { "Обучение", "Тестирование", "Литература" });
 			comboBox1.Location = new Point(117, 123);
@@ -182,5 +208,7 @@
 		private Label NameLabel;
 		private Label label1;
 		private ComboBox comboBox1;
+		private Button NextButton;
+		private Button PrevButton;
 	}
 }

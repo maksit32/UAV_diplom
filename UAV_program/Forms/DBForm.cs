@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UAV_program.Domain.Entities;
 using UAV_program.Domain.Exceptions;
+using UAV_program.Domain.Services.Interfaces;
+using UAV_program.Services;
 
 namespace UAV_program.Forms
 {
@@ -21,6 +23,7 @@ namespace UAV_program.Forms
 
 		//objects
 		private User user;
+		private int indexBtn = 0;
 
 		//configurations
 		private static readonly IConfiguration configuration = new ConfigurationBuilder()
@@ -64,8 +67,20 @@ namespace UAV_program.Forms
 		}
 		private void DBForm_Load(object sender, EventArgs e)
 		{
-
+			this.NameLabel.Text = user.ToString();
+			this.comboBox1.SelectedIndex = 0;
 		}
 		#endregion
+
+		//режим обучение
+		private void PrevButton_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void NextButton_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
