@@ -26,7 +26,7 @@ namespace UAV_program.Repository
 			if (newTest is null) throw new ArgumentNullException(nameof(newTest));
 
 			await Tests.AddAsync(newTest, token);
-			await _dbContext.SaveChangesAsync();
+			await _dbContext.SaveChangesAsync(token);
 		}
 
 		public async Task<List<Test>> ReadAllTestsAsync(CancellationToken token)
@@ -44,7 +44,7 @@ namespace UAV_program.Repository
 			if (updTest is null) throw new ArgumentNullException(nameof(updTest));
 
 			Tests.Update(updTest);
-			await _dbContext.SaveChangesAsync();
+			await _dbContext.SaveChangesAsync(token);
 		}
 
 		public async Task DeleteTestByIdAsync(Guid Id, CancellationToken token)
@@ -53,7 +53,7 @@ namespace UAV_program.Repository
 			if (test is null) throw new ArgumentNullException(nameof(test));
 
 			Tests.Remove(test);
-			await _dbContext.SaveChangesAsync();
+			await _dbContext.SaveChangesAsync(token);
 		}
 
 		public async Task DeleteTestAsync(Test test, CancellationToken token)
@@ -61,7 +61,7 @@ namespace UAV_program.Repository
 			if (test is null) throw new ArgumentNullException(nameof(test));
 
 			Tests.Remove(test);
-			await _dbContext.SaveChangesAsync();
+			await _dbContext.SaveChangesAsync(token);
 		}
 	}
 }

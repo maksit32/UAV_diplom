@@ -40,12 +40,18 @@
 			PrevButton = new Button();
 			richTextBox1 = new RichTextBox();
 			pictureBox1 = new PictureBox();
+			groupBox2 = new GroupBox();
+			TimerLabel = new Label();
+			AnswerTextBox = new TextBox();
+			Start_EnterTestButton = new Button();
+			AnswersRichTextBox = new RichTextBox();
 			comboBox1 = new ComboBox();
 			label1 = new Label();
 			timer1 = new System.Windows.Forms.Timer(components);
 			menuStrip1.SuspendLayout();
 			groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+			groupBox2.SuspendLayout();
 			SuspendLayout();
 			// 
 			// menuStrip1
@@ -146,6 +152,59 @@
 			pictureBox1.TabIndex = 0;
 			pictureBox1.TabStop = false;
 			// 
+			// groupBox2
+			// 
+			groupBox2.BackColor = Color.Azure;
+			groupBox2.Controls.Add(TimerLabel);
+			groupBox2.Controls.Add(AnswerTextBox);
+			groupBox2.Controls.Add(Start_EnterTestButton);
+			groupBox2.Controls.Add(AnswersRichTextBox);
+			groupBox2.Location = new Point(121, 236);
+			groupBox2.Name = "groupBox2";
+			groupBox2.Size = new Size(1067, 499);
+			groupBox2.TabIndex = 6;
+			groupBox2.TabStop = false;
+			groupBox2.Text = "Тестирование";
+			// 
+			// TimerLabel
+			// 
+			TimerLabel.AutoSize = true;
+			TimerLabel.Location = new Point(26, 34);
+			TimerLabel.Name = "TimerLabel";
+			TimerLabel.Size = new Size(86, 31);
+			TimerLabel.TabIndex = 8;
+			TimerLabel.Text = "Время:";
+			// 
+			// AnswerTextBox
+			// 
+			AnswerTextBox.Location = new Point(393, 380);
+			AnswerTextBox.Name = "AnswerTextBox";
+			AnswerTextBox.Size = new Size(309, 38);
+			AnswerTextBox.TabIndex = 4;
+			AnswerTextBox.TextAlign = HorizontalAlignment.Center;
+			AnswerTextBox.Visible = false;
+			AnswerTextBox.KeyPress += AnswerTextBox_KeyPress;
+			// 
+			// Start_EnterTestButton
+			// 
+			Start_EnterTestButton.Location = new Point(393, 424);
+			Start_EnterTestButton.Name = "Start_EnterTestButton";
+			Start_EnterTestButton.Size = new Size(309, 59);
+			Start_EnterTestButton.TabIndex = 3;
+			Start_EnterTestButton.Text = "Начать тест";
+			Start_EnterTestButton.UseVisualStyleBackColor = true;
+			Start_EnterTestButton.Click += Start_EnterTestButton_Click;
+			// 
+			// AnswersRichTextBox
+			// 
+			AnswersRichTextBox.BackColor = SystemColors.Menu;
+			AnswersRichTextBox.Location = new Point(26, 70);
+			AnswersRichTextBox.Name = "AnswersRichTextBox";
+			AnswersRichTextBox.ReadOnly = true;
+			AnswersRichTextBox.Size = new Size(1016, 291);
+			AnswersRichTextBox.TabIndex = 1;
+			AnswersRichTextBox.Text = "Текст";
+			// 
 			// comboBox1
 			// 
 			comboBox1.DisplayMember = "0";
@@ -180,6 +239,7 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.GradientInactiveCaption;
 			ClientSize = new Size(1300, 768);
+			Controls.Add(groupBox2);
 			Controls.Add(label1);
 			Controls.Add(comboBox1);
 			Controls.Add(groupBox1);
@@ -200,6 +260,8 @@
 			menuStrip1.PerformLayout();
 			groupBox1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+			groupBox2.ResumeLayout(false);
+			groupBox2.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -219,5 +281,10 @@
 		private Button NextButton;
 		private Button PrevButton;
 		private System.Windows.Forms.Timer timer1;
+		private GroupBox groupBox2;
+		private Button Start_EnterTestButton;
+		private RichTextBox AnswersRichTextBox;
+		private TextBox AnswerTextBox;
+		private Label TimerLabel;
 	}
 }

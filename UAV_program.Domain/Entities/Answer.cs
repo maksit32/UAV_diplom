@@ -23,9 +23,10 @@ namespace UAV_program.Domain.Entities
 		}
 		public override string ToString()
 		{
+			int index = 1;
 			string lstString = "";
 			foreach (var answ in AnswersLst)
-				lstString += answ + $"{Environment.NewLine}";
+				lstString += index + ") " + answ + $"{Environment.NewLine}";
 			string returnStr = $"{Question}{Environment.NewLine}{Environment.NewLine}" + lstString;
 			return returnStr;
 		}

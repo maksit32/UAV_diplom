@@ -14,7 +14,7 @@ namespace UAV_program.Domain.Entities
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public Guid Id { get; init; }
+		public Guid Id { get; set; }
 		public int CorrectAnswers { get; set; }
 		public int TotalQuestions { get; } = 10;
 		public int Mark { get; set; }

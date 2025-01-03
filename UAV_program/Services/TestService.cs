@@ -18,6 +18,7 @@ namespace UAV_program.Services
 				throw new ArgumentException("Списки ответов и индексов должны быть одинаковой длины и не null.");
 
 			int correct = 0;
+
 			//сколько ОТВЕЧЕННЫХ вопросов
 			int totalQuestions = lstIndexes.Count;
 
@@ -27,9 +28,12 @@ namespace UAV_program.Services
 					correct++;
 			}
 
-			int mark = (correct * 100) / totalQuestions; // Избегаем целочисленного деления
+			int mark = (correct * 100) / totalQuestions; //Избегаем целочисленного деления
 
 			Test testObj = new Test(user, correct, totalQuestions, mark);
+			testObj.UserId = user.Id;
+			testObj.Id = Guid.NewGuid();
+
 			return testObj;
 		}
 

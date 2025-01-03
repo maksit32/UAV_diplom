@@ -26,7 +26,7 @@ namespace UAV_program.Repository
 			if (newUser is null) throw new ArgumentNullException(nameof(newUser));
 
 			await Users.AddAsync(newUser, token);
-			await _dbContext.SaveChangesAsync();
+			await _dbContext.SaveChangesAsync(token);
 		}
 		public async Task<User?> GetUserByIdAsync(Guid Id, CancellationToken token)
 		{
@@ -43,7 +43,7 @@ namespace UAV_program.Repository
 			if (updUser is null) throw new ArgumentNullException(nameof(updUser));
 
 			Users.Update(updUser);
-			await _dbContext.SaveChangesAsync();
+			await _dbContext.SaveChangesAsync(token);
 		}
 
 		public async Task DeleteUserAsync(User user, CancellationToken token)
@@ -51,7 +51,7 @@ namespace UAV_program.Repository
 			if (user is null) throw new ArgumentNullException(nameof(user));
 
 			Users.Remove(user);
-			await _dbContext.SaveChangesAsync();
+			await _dbContext.SaveChangesAsync(token);
 		}
 
 		public async Task DeleteUserByIdAsync(Guid Id, CancellationToken token)
@@ -60,7 +60,7 @@ namespace UAV_program.Repository
 			if (user is null) return;
 
 			Users.Remove(user);
-			await _dbContext.SaveChangesAsync();
+			await _dbContext.SaveChangesAsync(token);
 		}
 	}
 }

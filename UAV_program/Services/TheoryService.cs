@@ -12,8 +12,6 @@ namespace UAV_program.Services
 	{
 		public KeyValuePair<string, string> MoveTheoryIndex(ref int index, bool moveNext)
 		{
-			if (index < 0) throw new ArgumentOutOfRangeException("index cann`t be less than 0");
-			index = moveNext is true ? index++ : index--;
 			//проверка на габариты
 			if (index < 0 || index >= LstTheory.Count)
 				index = 0;

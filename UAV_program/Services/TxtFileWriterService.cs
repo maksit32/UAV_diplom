@@ -38,7 +38,7 @@ namespace UAV_program.Services
 					writer.WriteLine("Всего вопросов: " + test.TotalQuestions);
 					writer.WriteLine("Из них правильных: " + test.CorrectAnswers);
 					writer.WriteLine();
-					writer.WriteLine("Ваша оценка: " + test.Mark);
+					writer.WriteLine("Процент правильных ответов: " + test.Mark);
 				}
 			}
 			catch (Exception)

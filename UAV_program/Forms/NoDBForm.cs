@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,13 +23,17 @@ namespace UAV_program.Forms
 		//filepaths
 		private static readonly string _literatureFP = Environment.CurrentDirectory + "\\..\\..\\..\\Literature\\";
 		private static readonly string _resultsFP = Environment.CurrentDirectory + "\\..\\..\\..\\Results\\";
-
+		private static readonly string literaturePath = Environment.CurrentDirectory + "\\..\\..\\..\\Literature\\";
 
 		//objects
-		private User user;
 		private int indexBtn = 0;
 		private int timeElapsed = 0; // Время прошло в секундах
 		private const int duration = 600; // 10 минут в секундах
+		private bool isMessageBoxShown = false; // Флаг для отслеживания состояния
+		private bool isExam = false;
+		private int questionIndex = 0;
+
+		private User user;
 		private List<Answer> lstAnswers;
 		private List<int> lstIndexes;
 
@@ -73,12 +78,18 @@ namespace UAV_program.Forms
 
 		private void NoDBForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			if (!isMessageBoxShown)
+			{
+				isMessageBoxShown = true;
+				MessageBox.Show($"Спасибо за пользование программой!", "Выход из программы", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
 			Application.Exit();
 		}
 
 		//режим обучение
 		private void PrevButton_Click(object sender, EventArgs e)
 		{
+			indexBtn--;
 			var pair = theoryService.MoveTheoryIndex(ref indexBtn, false);
 			this.pictureBox1.Image = Image.FromFile(pair.Key);
 			this.richTextBox1.Text = pair.Value;
@@ -86,19 +97,18 @@ namespace UAV_program.Forms
 
 		private void NextButton_Click(object sender, EventArgs e)
 		{
+			indexBtn++;
 			var pair = theoryService.MoveTheoryIndex(ref indexBtn, true);
 			this.pictureBox1.Image = Image.FromFile(pair.Key);
 			this.richTextBox1.Text = pair.Value;
 		}
-		//режим теста
-
-		#endregion
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
 			try
 			{
 				timeElapsed++;
+				this.TimerLabel.Text = "Секунд осталось: " + (duration - timeElapsed).ToString();
 
 				//время закончилось
 				if (timeElapsed >= duration)
@@ -108,8 +118,9 @@ namespace UAV_program.Forms
 					//подсчет результатов
 					Test testRes = testService.CreateDbTest(lstAnswers, lstIndexes, user);
 					//выводим сообщение о завершении теста
-					MessageBox.Show($"Внимание, время тестирования закончилось!", "Тест окончен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					
+					MessageBox.Show($"Внимание, время тестирования закончилось!{Environment.NewLine}" +
+						$"{Environment.NewLine}Спасибо за пользование программой", "Тест окончен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 					//запись результата экзамена в .txt файл
 					fws.WriteDataToFile(testRes);
 					//выход из программы
@@ -131,25 +142,103 @@ namespace UAV_program.Forms
 					{
 						this.ModeLabel.Text = "Режим: обучение";
 						this.groupBox1.Visible = true;
+						this.groupBox2.Visible = false;
+
+						indexBtn = 0;
+						var pair = theoryService.MoveTheoryIndex(ref indexBtn, true);
+						this.pictureBox1.Image = Image.FromFile(pair.Key);
+						this.richTextBox1.Text = pair.Value;
 					}
 					break;
 				//тест
 				case 1:
 					{
 						this.ModeLabel.Text = "Режим: тест";
+						this.groupBox2.Visible = true;
 						this.groupBox1.Visible = false;
+
+						//выдача теста
+						this.lstIndexes = new List<int>();
+						this.lstAnswers = testService.GenerateTest();
+						this.AnswersRichTextBox.Text = $"В тесте содержится 10 вопросов с 4 вариантами ответов.{Environment.NewLine}" +
+							$"Для ввода ответа напишите цифру в поле ниже и нажмите кнопку ВВОД";
 					}
 					break;
 				//литература
 				case 2:
 					{
 						this.ModeLabel.Text = "Режим: литература";
-						this.groupBox1.Visible = false;
+						this.groupBox1.Visible = true;
+						this.groupBox2.Visible = false;
+
+						indexBtn = 0;
+						var pair = theoryService.MoveTheoryIndex(ref indexBtn, true);
+						this.pictureBox1.Image = Image.FromFile(pair.Key);
+						this.richTextBox1.Text = pair.Value;
+
+						//открытие папки с литературой
+						Process.Start("explorer.exe", literaturePath);
 					}
-					break;
-				default:
 					break;
 			}
 		}
+
+		private void AnswerTextBox_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+			{
+				e.Handled = true; //Отменяем ввод, если символ не цифра и не Backspace
+				return;
+			}
+		}
+
+		private void Start_EnterTestButton_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (!isExam)
+				{
+					MessageBox.Show("Экзамен начат!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					isExam = true;
+					this.AnswerTextBox.Visible = true;
+					var qstn = lstAnswers[questionIndex];
+					this.AnswersRichTextBox.Text = qstn.ToString();
+					this.Start_EnterTestButton.Text = "ВВОД";
+					timer1.Start();
+				}
+				//проведение экзамена
+				else
+				{
+					questionIndex++;
+					//проверка на выполненный тест
+					if (questionIndex == 10)
+					{
+						lstIndexes.Add(Convert.ToInt32(this.AnswerTextBox.Text) - 1);
+						timer1.Stop();
+						//подсчет результатов
+						Test testRes = testService.CreateDbTest(lstAnswers, lstIndexes, user);
+						//выводим сообщение о завершении теста
+						MessageBox.Show($"Внимание, время тестирования закончилось!{Environment.NewLine}" +
+							$"{Environment.NewLine}Спасибо за пользование программой", "Тест окончен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+						//запись результата экзамена в .txt файл
+						fws.WriteDataToFile(testRes);
+						//выход из программы
+						Application.Exit();
+					};
+
+					lstIndexes.Add(Convert.ToInt32(this.AnswerTextBox.Text) - 1);
+					//выдача вопроса
+					var qstn = lstAnswers[questionIndex];
+					this.AnswersRichTextBox.Text = qstn.ToString();
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Возникла ошибка при прохождении теста!{ex.Message}", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Application.Exit();
+			}
+		}
+		#endregion
 	}
 }
