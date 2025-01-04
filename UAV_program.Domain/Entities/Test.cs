@@ -14,11 +14,11 @@ namespace UAV_program.Domain.Entities
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public Guid Id { get; set; }
+		public Guid Id { get; init; }
 		public int CorrectAnswers { get; set; }
 		public int TotalQuestions { get; } = 10;
 		public int Mark { get; set; }
-        public DateTime DateExam { get; set; }
+		public DateTime DateExam { get; set; }
 		public Guid UserId { get; set; }
 		public User User { get; set; }
 

@@ -32,7 +32,6 @@ namespace UAV_program.Services
 
 			Test testObj = new Test(user, correct, totalQuestions, mark);
 			testObj.UserId = user.Id;
-			testObj.Id = Guid.NewGuid();
 
 			return testObj;
 		}

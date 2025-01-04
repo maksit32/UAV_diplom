@@ -214,6 +214,7 @@ namespace UAV_program.Forms
 					if (questionIndex == 10)
 					{
 						lstIndexes.Add(Convert.ToInt32(this.AnswerTextBox.Text) - 1);
+						this.AnswerTextBox.Text = "";
 						timer1.Stop();
 						//подсчет результатов
 						Test testRes = testService.CreateDbTest(lstAnswers, lstIndexes, user);
@@ -228,6 +229,7 @@ namespace UAV_program.Forms
 					};
 
 					lstIndexes.Add(Convert.ToInt32(this.AnswerTextBox.Text) - 1);
+					this.AnswerTextBox.Text = "";
 					//выдача вопроса
 					var qstn = lstAnswers[questionIndex];
 					this.AnswersRichTextBox.Text = qstn.ToString();

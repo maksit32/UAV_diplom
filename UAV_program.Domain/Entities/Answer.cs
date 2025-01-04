@@ -26,7 +26,7 @@ namespace UAV_program.Domain.Entities
 			int index = 1;
 			string lstString = "";
 			foreach (var answ in AnswersLst)
-				lstString += index + ") " + answ + $"{Environment.NewLine}";
+				lstString += index++ + ") " + answ + $"{Environment.NewLine}";
 			string returnStr = $"{Question}{Environment.NewLine}{Environment.NewLine}" + lstString;
 			return returnStr;
 		}

@@ -9,6 +9,6 @@ namespace UAV_program.Domain.Entities.Interfaces
 	//от реализуются классы в БД
 	public interface IEntity
 	{
-		Guid Id { get; set; }
+		Guid Id { get; init; }
 	}
 }
