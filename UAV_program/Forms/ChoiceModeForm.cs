@@ -78,10 +78,6 @@ namespace UAV_program.Forms
 		{
 			try
 			{
-				using TestDbContext dbContext = new TestDbContext(connectionString);
-				IUserRepository userRepo = new UserRepository(dbContext);
-				await userRepo.AddUserAsync(user, cts.Token);
-
 				//переход на следующий мнемокадр
 				DBForm form = new DBForm(user);
 
