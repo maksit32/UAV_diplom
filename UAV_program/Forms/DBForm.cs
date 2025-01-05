@@ -73,7 +73,8 @@ namespace UAV_program.Forms
 		private void обАвтореToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MessageBox.Show($"Данная обучающая программа разработана студентом группы РС-6 факультета АСК" +
-							$"{Environment.NewLine}Корнильевым Максимом Михайловичем", "Об авторе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							$"{Environment.NewLine}Корнильевым Максимом Михайловичем{Environment.NewLine}{Environment.NewLine}" +
+							$"Почта для связи:  kornilovmaks2001111@mail.ru", "Об авторе", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
