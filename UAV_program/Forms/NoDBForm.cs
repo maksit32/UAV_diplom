@@ -113,7 +113,7 @@ namespace UAV_program.Forms
 				//время закончилось
 				if (timeElapsed >= duration)
 				{
-					// Останавливаем таймер
+					//останавливаем таймер
 					timer1.Stop();
 					//подсчет результатов
 					Test testRes = testService.CreateDbTest(lstAnswers, lstIndexes, user);

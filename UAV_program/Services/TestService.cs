@@ -14,8 +14,8 @@ namespace UAV_program.Services
 	{
 		public Test CreateDbTest(List<Answer> lstAnswers, List<int> lstIndexes, User user)
 		{
-			if (lstAnswers == null || lstIndexes == null || lstAnswers.Count != lstIndexes.Count)
-				throw new ArgumentException("Списки ответов и индексов должны быть одинаковой длины и не null.");
+			if (lstAnswers == null || lstIndexes == null)
+				throw new ArgumentException("Списки ответов и индексов не должны быть null.");
 
 			int correct = 0;
 
