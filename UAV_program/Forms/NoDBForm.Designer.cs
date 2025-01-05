@@ -250,7 +250,9 @@
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(5);
 			MaximizeBox = false;
+			MaximumSize = new Size(1318, 815);
 			MinimizeBox = false;
+			MinimumSize = new Size(1318, 815);
 			Name = "NoDBForm";
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Обучающая программа в режиме отсутствия взаимодействия с БД";

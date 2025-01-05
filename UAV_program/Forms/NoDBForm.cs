@@ -14,17 +14,13 @@ using UAV_program.Domain.Repository.Interfaces;
 using UAV_program.Domain.Services.Interfaces;
 using UAV_program.Repository;
 using UAV_program.Services;
+using static UAV_program.Domain.Constants.Filepaths;
 
 namespace UAV_program.Forms
 {
 	public partial class NoDBForm : Form
 	{
 		#region [Objects]
-		//filepaths
-		private static readonly string _literatureFP = Environment.CurrentDirectory + "\\..\\..\\..\\Literature\\";
-		private static readonly string _resultsFP = Environment.CurrentDirectory + "\\..\\..\\..\\Results\\";
-		private static readonly string literaturePath = Environment.CurrentDirectory + "\\..\\..\\..\\Literature\\";
-
 		//objects
 		private int indexBtn = 0;
 		private int timeElapsed = 0; // Время прошло в секундах
