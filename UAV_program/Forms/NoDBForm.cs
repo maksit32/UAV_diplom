@@ -205,6 +205,7 @@ namespace UAV_program.Forms
 				//проведение экзамена
 				else
 				{
+					if (string.IsNullOrWhiteSpace(this.AnswerTextBox.Text)) return;
 					questionIndex++;
 					//проверка на выполненный тест
 					if (questionIndex == 10)
